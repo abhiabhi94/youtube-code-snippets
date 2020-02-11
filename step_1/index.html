@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Fiddle Clone</title>
+    <style>
+        .main-header {
+            text-align: center;
+        }
+        
+        textarea {
+            height: 200px;
+            width: 90%;
+            padding: 20px;
+            margin: 10px;
+        }
+        
+        output {
+            border: 1px solid gray;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="main-header">JS Fiddle Clone</h1>
+    <div class="input">
+        <div>
+            <h3>HTML</h3>
+            <textarea id="input"></textarea>
+        </div>
+    </div>
+    <div class="output">
+        <h3>Output Code</h3>
+        <div id="output"></div>
+    </div>
+    <script>
+        document.querySelector('#input').addEventListener('keyup', function(e) {
+            if (e.target.value.endsWith('<') || e.target.value.endsWith('/')) {
+                return;
+            }
+            document.querySelector('#output').innerHTML = document.querySelector('#input').value;
+        })
+    </script>
+
+</body>
+
+</html>

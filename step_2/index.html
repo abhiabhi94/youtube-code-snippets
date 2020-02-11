@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Fiddle Clone</title>
+    <style>
+        .main-header {
+            text-align: center;
+        }
+        
+        .input {
+            display: flex;
+            flex-direction: row;
+            flex: 1;
+        }
+        
+        textarea {
+            height: 200px;
+            width: 90%;
+            padding: 20px;
+            margin: 10px;
+        }
+        
+        .inputCss,
+        .inputHtml {
+            flex: 1;
+        }
+        
+        output {
+            border: 1px solid gray;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="main-header">JS Fiddle Clone</h1>
+    <div class="input">
+        <div class="inputHtml">
+            <h3>HTML</h3>
+            <textarea id="inputHtml"></textarea>
+        </div>
+        <div class="inputCss">
+            <h3>CSS</h3>
+            <textarea id="inputCss"></textarea>
+        </div>
+    </div>
+    <iframe class="output" frameborder="0">
+        <head> Output</head>
+        <body>
+            <div id="output"></div>
+        </body>
+    </iframe>
+    <script>
+        document.querySelector('#inputHtml').addEventListener('keyup', function(e) {
+            if (e.target.value.endsWith('<') || e.target.value.endsWith('/')) {
+                return;
+            }
+            document.querySelector('iframe#output').innerHTML = document.querySelector('#inputHtml').value;
+        })
+        document.querySelector('#inputCss').addEventListener('keyup', function(e) {
+            document.querySelector('iframe').style.cssText = document.querySelector('#inputCss').value;
+        })
+    </script>
+
+</body>
+
+</html>
