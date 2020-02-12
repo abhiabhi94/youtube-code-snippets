@@ -28,8 +28,9 @@
             flex: 1;
         }
         
-        output {
-            border: 1px solid gray;
+        iframe {
+            width: 95%;
+            padding: 20px;
         }
     </style>
 </head>
@@ -46,22 +47,39 @@
             <textarea id="inputCss"></textarea>
         </div>
     </div>
-    <iframe class="output" frameborder="0">
-        <head> Output</head>
-        <body>
-            <div id="output"></div>
-        </body>
+    <iframe title="Output" frameborder="0">
+        <html>
+            <head></head>
+            <body></body>
+        </html>
     </iframe>
     <script>
+        /**
+         * Updates the content of the iframe with current html and css.
+         * @param {string} HTMLIframeElement - the frame that needs to be updated
+         */
+        function updateIframe(frame) {
+            // frame.src = 'about:blank';
+            frame.document.body.innerHTML = '';
+            const html = document.querySelector('#inputHtml');
+            frame.document.write(html.value);
+            const css = document.querySelector('#inputCss').value;
+            const style = document.createElement('style');
+            frame.document.head.append(style);
+            style.type = 'text/css';
+            style.appendChild(document.createTextNode(css));
+        }
+        let iframe = document.querySelector('iframe');
+        iframe = iframe.contentWindow || (iframe.contentDocument.document || iframe.contentDocument);
         document.querySelector('#inputHtml').addEventListener('keyup', function(e) {
             if (e.target.value.endsWith('<') || e.target.value.endsWith('/')) {
                 return;
             }
-            document.querySelector('iframe#output').innerHTML = document.querySelector('#inputHtml').value;
+            updateIframe(iframe);
         })
-        document.querySelector('#inputCss').addEventListener('keyup', function(e) {
-            document.querySelector('iframe').style.cssText = document.querySelector('#inputCss').value;
-        })
+        document.querySelector('#inputCss').addEventListener('keyup', function() {
+            updateIframe(iframe);
+        });
     </script>
 
 </body>
