@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JS Fiddle Clone</title>
     <style>
+        body {
+            margin: 0.5rem;
+            padding: 1rem;
+        }
+        
         .main-header {
             text-align: center;
         }
@@ -13,8 +18,8 @@
         textarea {
             height: 200px;
             width: 90%;
-            padding: 20px;
-            margin: 10px;
+            padding: 1rem;
+            margin: 0.5rem;
         }
         
         output {
@@ -36,11 +41,11 @@
         <div id="output"></div>
     </div>
     <script>
-        document.querySelector('#input').addEventListener('keyup', function(e) {
-            if (e.target.value.endsWith('<') || e.target.value.endsWith('/')) {
+        document.querySelector("#input").addEventListener("keyup", function(e) {
+            if (e.target.value.endsWith("<") || e.target.value.endsWith("/")) {
                 return;
             }
-            document.querySelector('#output').innerHTML = document.querySelector('#input').value;
+            document.querySelector("#output").innerHTML = document.querySelector("#input").value;
         })
     </script>
 
