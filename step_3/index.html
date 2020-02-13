@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Fiddle Clone</title>
+    <style>
+        body {
+            margin: 0.5rem;
+            padding: 1rem;
+        }
+        
+        .main-header {
+            text-align: center;
+        }
+        
+        .input {
+            display: flex;
+            flex-direction: row;
+            flex: 1;
+        }
+        
+        textarea {
+            height: 200px;
+            width: 90%;
+            padding: 1rem;
+            margin: 0.5rem;
+        }
+        
+        .inputCss,
+        .inputHtml,
+        .inputJs {
+            flex: 1;
+        }
+        
+        iframe {
+            width: 90%;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="main-header">JS Fiddle Clone</h1>
+    <div class="input">
+        <div class="inputHtml">
+            <h3>HTML</h3>
+            <textarea id="inputHtml"></textarea>
+        </div>
+        <div class="inputCss">
+            <h3>CSS</h3>
+            <textarea id="inputCss"></textarea>
+        </div>
+        <div class="inputJs">
+            <h3>Javascript</h3>
+            <textarea id="inputJs"></textarea>
+        </div>
+    </div>
+    <iframe title="Output" frameborder="0">
+    </iframe>
+    <script>
+        /**
+         * Updates the content of the iframe with current html and css.
+         * @param {HTMLIframeElement} frame - the frame that needs to be updated
+         * @param {Window} frameWin - the window of the frame that needs to be updated
+         */
+        function updateIframe(frame, frameWin) {
+            // Prepare HTML
+            const html = document.querySelector("#inputHtml");
+            if (html) {
+                frameWin.document.body.innerHTML = html.value;
+            }
+            // Prepare css
+            const css = document.querySelector("#inputCss").value;
+            // Update only if there's some value
+            if (css) {
+                const cssVal = document.createTextNode(css);
+                let style;
+                // check if the style element exists
+                if (!frameWin.document.querySelector("style")) {
+                    // create and append the style element to the head
+                    style = document.createElement("style");
+                    frameWin.document.head.append(style);
+                    style.type = "text/css";
+                    style.appendChild(cssVal);
+                } else {
+                    // update the style element
+                    style = frameWin.document.querySelector("style");
+                    style.innerHTML = css;
+                }
+            }
+            // Prepare js
+            const js = document.querySelector("#inputJs").value;
+            // Update only if there's a value
+            if (js) {
+                const scriptVal = document.createTextNode(js);
+                let script;
+                // Check if the script element exists
+                if (!frameWin.document.querySelector("script")) {
+                    // Create and append the script element to head
+                    script = document.createElement("script");
+                    frameWin.document.body.appendChild(script);
+                    script.type = "text/javascript";
+                    script.appendChild(scriptVal);
+                } else {
+                    // update the script element
+                    script = frameWin.document.querySelector("script");
+                    script.innerHTML = js;
+                }
+            }
+        }
+        const iframe = document.querySelector("iframe");
+        const iframeWin = iframe.contentWindow;
+        document.querySelector("#inputHtml").addEventListener("keyup", function(e) {
+            if (e.target.value.endsWith("<") || e.target.value.endsWith("/")) {
+                return;
+            }
+            updateIframe(iframe, iframeWin);
+        });
+        document.querySelector("#inputCss").addEventListener("keyup", function(e) {
+            updateIframe(iframe, iframeWin);
+        });
+
+        document.querySelector("#inputJs").addEventListener("keyup", function(e) {
+            updateIframe(iframe, iframeWin);
+        });
+    </script>
+
+</body>
+
+</html>
