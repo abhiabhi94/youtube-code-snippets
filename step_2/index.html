@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JS Fiddle Clone</title>
     <style>
+        body {
+            margin: 0.5rem;
+            padding: 1rem;
+        }
+        
         .main-header {
             text-align: center;
         }
@@ -29,8 +34,9 @@
         }
         
         iframe {
-            width: 95%;
-            padding: 20px;
+            width: 90%;
+            padding: 1rem;
+            margin: 0.5rem;
         }
     </style>
 </head>
@@ -48,37 +54,49 @@
         </div>
     </div>
     <iframe title="Output" frameborder="0">
-        <html>
-            <head></head>
-            <body></body>
-        </html>
     </iframe>
     <script>
         /**
          * Updates the content of the iframe with current html and css.
-         * @param {string} HTMLIframeElement - the frame that needs to be updated
+         * @param {HTMLIframeElement} frame - the frame that needs to be updated
+         * @param {Window} frameWin - the window of the frame that needs to be updated
          */
-        function updateIframe(frame) {
-            // frame.src = 'about:blank';
-            frame.document.body.innerHTML = '';
-            const html = document.querySelector('#inputHtml');
-            frame.document.write(html.value);
-            const css = document.querySelector('#inputCss').value;
-            const style = document.createElement('style');
-            frame.document.head.append(style);
-            style.type = 'text/css';
-            style.appendChild(document.createTextNode(css));
+        function updateIframe(frame, frameWin) {
+            // Prepare HTML
+            const html = document.querySelector("#inputHtml");
+            if (html) {
+                frameWin.document.body.innerHTML = html.value;
+            }
+            // Prepare css
+            const css = document.querySelector("#inputCss").value;
+            // Update only if there's some value
+            if (css) {
+                const cssVal = document.createTextNode(css);
+                let style;
+                // check if the style element exists
+                if (!frameWin.document.querySelector("style")) {
+                    // create and append the style element to the head
+                    style = document.createElement("style");
+                    frameWin.document.head.append(style);
+                    style.type = "text/css";
+                    style.appendChild(cssVal);
+                } else {
+                    // update the style element
+                    style = frameWin.document.querySelector("style");
+                    style.innerHTML = css;
+                }
+            }
         }
-        let iframe = document.querySelector('iframe');
-        iframe = iframe.contentWindow || (iframe.contentDocument.document || iframe.contentDocument);
-        document.querySelector('#inputHtml').addEventListener('keyup', function(e) {
-            if (e.target.value.endsWith('<') || e.target.value.endsWith('/')) {
+        const iframe = document.querySelector("iframe");
+        const iframeWin = iframe.contentWindow;
+        document.querySelector("#inputHtml").addEventListener("keyup", function(e) {
+            if (e.target.value.endsWith("<") || e.target.value.endsWith("/")) {
                 return;
             }
-            updateIframe(iframe);
-        })
-        document.querySelector('#inputCss').addEventListener('keyup', function() {
-            updateIframe(iframe);
+            updateIframe(iframe, iframeWin);
+        });
+        document.querySelector("#inputCss").addEventListener("keyup", function(e) {
+            updateIframe(iframe, iframeWin);
         });
     </script>
 
