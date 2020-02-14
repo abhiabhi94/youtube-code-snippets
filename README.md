@@ -1,7 +1,1 @@
-# A JS Fiddle Clone with minimum dependencies
-
-### Dependencies
-
-- #### HTML 5
-- #### CSS 3
-- #### Vanilla JS
+Code snippets for the youtube channel : [Code Samundar](https://github.com/abhiabhi94/youtube-code-snippets)
