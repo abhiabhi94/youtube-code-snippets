@@ -18,7 +18,6 @@
         .input {
             display: flex;
             flex-direction: row;
-            flex: 1;
         }
         
         textarea {
@@ -58,14 +57,13 @@
     <script>
         /**
          * Updates the content of the iframe with current html and css.
-         * @param {HTMLIframeElement} frame - the frame that needs to be updated
-         * @param {Window} frameWin - the window of the frame that needs to be updated
+         * @param {Window} frame - the window of the HMTLIframe that needs to be updated
          */
-        function updateIframe(frame, frameWin) {
+        function updateIframe(frame) {
             // Prepare HTML
             const html = document.querySelector("#inputHtml");
             if (html) {
-                frameWin.document.body.innerHTML = html.value;
+                frame.document.body.innerHTML = html.value;
             }
             // Prepare css
             const css = document.querySelector("#inputCss").value;
@@ -74,29 +72,28 @@
                 const cssVal = document.createTextNode(css);
                 let style;
                 // check if the style element exists
-                if (!frameWin.document.querySelector("style")) {
+                if (!frame.document.querySelector("style")) {
                     // create and append the style element to the head
                     style = document.createElement("style");
-                    frameWin.document.head.append(style);
+                    frame.document.head.append(style);
                     style.type = "text/css";
                     style.appendChild(cssVal);
                 } else {
                     // update the style element
-                    style = frameWin.document.querySelector("style");
+                    style = frame.document.querySelector("style");
                     style.innerHTML = css;
                 }
             }
         }
-        const iframe = document.querySelector("iframe");
-        const iframeWin = iframe.contentWindow;
+        const iframe = document.querySelector("iframe").contentWindow;
         document.querySelector("#inputHtml").addEventListener("keyup", function(e) {
             if (e.target.value.endsWith("<") || e.target.value.endsWith("/")) {
                 return;
             }
-            updateIframe(iframe, iframeWin);
+            updateIframe(iframe);
         });
         document.querySelector("#inputCss").addEventListener("keyup", function(e) {
-            updateIframe(iframe, iframeWin);
+            updateIframe(iframe);
         });
     </script>
 
