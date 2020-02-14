@@ -7,3 +7,5 @@
 - ##### HTML 5
 - ##### CSS 3
 - ##### Vanilla JS
+
+Playlist link: https://www.youtube.com/playlist?list=PLpfBVpcv5OTLyCfg_erNuE0yHq1Ktscny

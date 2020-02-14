@@ -1,1 +1,1 @@
-Code snippets for the youtube channel : [Code Samundar](https://github.com/abhiabhi94/youtube-code-snippets)
+Code snippets for the youtube channel : [Code Samundar](https://www.youtube.com/channel/UCJv-iX8uWjMjAc9j7TXuVoA)
