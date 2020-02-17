@@ -1,0 +1,40 @@
+body {
+    padding: 1rem;
+    margin: 0.5rem;
+    background-color: #18121e;
+    color: #f7f7f7;
+    font-weight: bold;
+    ;
+}
+
+.main-header {
+    text-align: center;
+}
+
+.input {
+    padding: 1rem;
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: row;
+}
+
+textarea {
+    width: 90%;
+    height: 200px;
+    margin: 0.5rem;
+    padding: 1rem;
+    font-size: 1rem;
+    border: 1px solid #fff;
+}
+
+.inputHtml,
+.inputCss,
+.inputJs {
+    flex: 1;
+}
+
+iframe {
+    width: 90%;
+    padding: 1rem;
+    margin: 0.5rem;
+}
